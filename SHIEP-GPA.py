@@ -4,7 +4,7 @@
 # 在分数页面复制该页内容到本地文件，与本文件放置在同一个文件夹中并重命名为data(无后缀)
 # 手动筛选data文件中的所有重修科目(删掉分数低的，留一个高的即可)！！！
 # 0学分科目不在计算范围内
-# 版本1
+# version 1.0
 
 with open('./data','r',encoding='utf-8') as data:
     text = data.readlines()
@@ -58,25 +58,3 @@ def calc():
 calc()
 print()
 print()
-
-'''
-def other_calc():
-    sub_no = 0
-    score_sum = 0
-
-    for each_column in text:
-        course = each_column.split()
-        point = course[4]
-        score = course[5]
-
-        if score.isdigit() and point != '0':
-            score_sum += int(score)
-            sub_no += 1
-
-    print("显示学分不等于0，且有实际分数的科目(不包括优良中差，ABCD)")
-    print("总分数: " + str(score_sum))
-    print("科目数: " + str(sub_no))
-    print("平均分: " + str( score_sum * 1.0/sub_no))
-
-other_calc()
-'''
