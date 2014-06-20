@@ -1,12 +1,16 @@
 # encoding = utf-8
-# SHIEP查询成绩系统中,平均分,平均绩点,等计算
-# Sam 2014-6-18 今日毕业！
-# 在分数页面复制该页内容到本地文件，与本文件放置在同一个文件夹中并重命名为data(无后缀)
-# 手动筛选data文件中的所有重修科目(删掉分数低的，留一个高的即可)！！！
-# 0学分科目不在计算范围内
-# version 1.0
+#
+# SHIEP 总学分，算数平均分,绩点等快速计算。
+# Sam 2014-6-20 毕业后第一天写此脚本以用来算出自己的最好看绩点形式 :D
+#
+# 挂过科的情况本人未测试,0学分科目不在计算范围内。
+# SHIEP-GPA-CALCULATOR version 1.5 with python 3.3
+# 使用方法:复制成绩页面所有内容到本地文档，有重修科目选择取得最高分的一项，低的那一行全部删除，与本程序放置到同一个文件夹中,运行py。
 
-with open('./data','r',encoding='utf-8') as data:
+type_in = input("请输入文件名(请注意有无后缀,建议使用纯文件不使用txt因为未测试过后者!): ")
+doc_path = './' + type_in
+
+with open(doc_path,'r',encoding='utf-8') as data:
     text = data.readlines()
 
 def calc():
@@ -17,22 +21,18 @@ def calc():
 
     for each_column in text:
         value = each_column.split()
-#        course_no = value[1]     # 课号
-#        course_name = value[2]   # 课程名
-#        course_period = value[9] # 学期
-#       take_it_over = value[8]
         course_credit = value[4]  # 学分
         course_grade = value[5]   # 分数
         course_point = value[6]   # 绩点
 
         if course_credit != '0':
-            if course_grade == ('优' or 'A'):
+            if course_grade == '优' or course_grade == 'A':
                 course_grade = '90'
             elif course_grade == '良' or course_grade == 'B':
                 course_grade = '80'
-            elif course_grade == ('中' or 'C'):
+            elif course_grade == '中' or course_grade == 'C':
                 course_grade = '70'
-            elif course_grade == ('及格' or 'D'):
+            elif course_grade == '及格' or course_grade == 'D':
                 course_grade = '60'
 
             grade_sum += int(course_grade)  #总分数
@@ -45,16 +45,13 @@ def calc():
 
     my_gpa = total_ctp / credit_sum  #  学分乘以绩点的总数除以总学分
     aver_sum = grade_sum / course_sum
-    aver_point = (aver_sum - 50) / 10
 
-    print("显示学分不等于0的所有科目(包括换算后的优良中差,ABCD)")
+    print("显示【学分不等于0】的所有科目(包括换算后的优良中差,ABCD)")
     print('总学分是：', credit_sum)
-    print('非0学分课程总数是：', course_sum)
-    print('非0学分分数总数是：', grade_sum)
-    print('非0学分课程的GPA是：', round(my_gpa, 5))
-    print('非0学分课程的算数平均分是：', round(aver_sum, 3))
-    print('非0学分课程的折合绩点是：', round(aver_point, 3))
+    print('课程总数是：', course_sum)
+    print('总分数是：', grade_sum)
+    print('GPA是：', round(my_gpa, 5))
+    print('算数平均分是：', round(aver_sum, 3))
 
 calc()
-print()
 print()
