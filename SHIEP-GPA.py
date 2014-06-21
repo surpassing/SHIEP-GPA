@@ -7,17 +7,20 @@
 # SHIEP-GPA-CALCULATOR version 2.0 beta with python 3.3 6-21-2014
 # 使用方法:复制成绩页面所有表格内内容到本地文档，与本程序放置到同一个文件夹中,运行py。
 
-type_in = input("请输入文件名(请注意有无后缀): ")
-doc_path = './' + type_in
-
-with open(doc_path,'r',encoding='utf-8') as data:
-    text = data.readlines()
-
 course_in_all = {}
+
+def all_start():
+    global course_in_all
+    global text
+    course_in_all = {}
+    type_in = input("请输入文件名(请注意有无后缀): ")
+    doc_path = './' + type_in
+
+    with open(doc_path,'r',encoding='utf-8') as data:
+        text = data.readlines()
 
 def make_dict():
     global course_in_all
-
     for each_column in text:
         value = each_column.split()
 #       take_it_over = value[9]   # 是否重修
@@ -44,7 +47,6 @@ def make_dict():
                       course_in_all[course_num][2] = course_point
 
 def calc():
-    global course_in_all
     course_sum, credit_sum, grade_sum, point_sum = 0, 0, 0, 0
     total_ctp = 0
 
@@ -76,5 +78,12 @@ def calc():
     print('GPA是：', round(my_gpa, 5))
     print('算数平均分是：', round(aver_point, 3), ', 即', round(aver_point_final, 5))
 
-make_dict()
-calc()
+if __name__ == '__main__':
+    while True:
+        a = input('输入y开始计算,n退出： ')
+        if a == ('y' or 'Y'):
+            all_start()
+            make_dict()
+            calc()
+        else:
+               exit()
