@@ -4,7 +4,7 @@
 # Sam 2014-6-20所写 毕业后第一天写此脚本以用来算出自己的最好看绩点形式 :D
 #
 # 挂过科的情况本人未测试(去掉不规则的行数试试)，免听重修的可以使用本脚本进行计算，0学分科目不在计算范围内。
-# SHIEP-GPA-CALCULATOR version 2.0 beta with python 3.3 6-21-2014
+# SHIEP-GPA-CALCULATOR version 2.0.0 with python 3.3 6-21-2014
 # 使用方法:复制成绩页面所有表格内内容到本地文档，与本程序放置到同一个文件夹中,运行py。
 
 course_in_all = {}
@@ -13,11 +13,13 @@ def all_start():
     global course_in_all
     global text
     course_in_all = {}
-    type_in = input("请输入文件名(请注意有无后缀): ")
+    type_in = input("请将教学管理系统成绩页中所有成绩内容复制到本地文档中，与本程序放置同一文件夹下，并输入文档文件名(请注意有无后缀): ")
     doc_path = './' + type_in
-
-    with open(doc_path,'r',encoding='utf-8') as data:
-        text = data.readlines()
+    try:
+        with open(doc_path,'r',encoding='utf-8') as data:
+            text = data.readlines()
+    except FileNotFoundError as error:
+        print("文件没找到")
 
 def make_dict():
     global course_in_all
@@ -69,8 +71,8 @@ def calc():
 
     my_gpa = total_ctp / credit_sum  # 学分乘以绩点的总数除以总学分
 
-    print(course_sum, credit_sum, grade_sum, point_sum)
-    print("上海电力外语系2010级某只求高GPA的路过，本脚本显示【学分不等于0】的所有科目(包括换算后的优良中差,ABCD)")
+    print('当前版本:v2.0.0')
+    print("上海电力外语系2010级某只路过，本程序显示【学分不等于0】的所有科目(包括换算后的优良中差,ABCD)")
     print("鸣谢:所有给我高分的那些老师们！有机会的话在3.0里加入教师统计给你们统统赞一个，我都记得的。")
     print('总学分是：', credit_sum)
     print('总课程数是：', course_sum)
@@ -80,7 +82,7 @@ def calc():
 
 if __name__ == '__main__':
     while True:
-        a = input('输入y开始计算,n退出： ')
+        a = input('输入y继续,n退出： ')
         if a == ('y' or 'Y'):
             all_start()
             make_dict()
