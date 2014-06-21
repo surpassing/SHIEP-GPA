@@ -81,6 +81,9 @@ def calc():
     print('总分数是：', grade_sum)
     print('GPA是：', round(my_gpa, 5))
     print('算数平均分是：', round(aver_point, 3), ', 即', round(aver_point_final, 5))
+    
+    
+# 运行
 
 if __name__ == '__main__':
     while True:
