@@ -4,24 +4,34 @@
 # Sam 2014-6-20所写 毕业后第一天写此脚本以用来算出自己的最好看绩点形式 :D
 #
 # 挂过科的情况本人未测试(去掉不规则的行数试试)，免听重修的可以使用本脚本进行计算，0学分科目不在计算范围内。
-# SHIEP-GPA-CALCULATOR version 2.0.0 with python 3.3 6-21-2014
+# SHIEP-GPA-CALCULATOR version 2.0.2 with python 3.3 6-21-2014
 # 使用方法:复制成绩页面所有表格内内容到本地文档，与本程序放置到同一个文件夹中,运行py。
 
 course_in_all = {}
+text = []
+is_flag = True
 
 def all_start():
-    global course_in_all
+    global is_flag
     global text
+    global course_in_all
     course_in_all = {}
     type_in = input("请将教学管理系统成绩页中所有成绩内容复制到本地文档中，与本程序放置同一文件夹下，并输入文档文件名(请注意有无后缀): ")
     doc_path = './' + type_in
     try:
         with open(doc_path,'r',encoding='utf-8') as data:
             text = data.readlines()
+        is_flag = True
     except FileNotFoundError as error:
-        print("文件没找到")
+        print()
+        print('+++++++++++++++++++++++++++++++++++')
+        print("文件未找到!!!!")
+        print('+++++++++++++++++++++++++++++++++++')
+        print()
+        is_flag = False
 
 def make_dict():
+    global text
     global course_in_all
     for each_column in text:
         value = each_column.split()
@@ -71,8 +81,8 @@ def calc():
 
     my_gpa = total_ctp / credit_sum  # 学分乘以绩点的总数除以总学分
 
-    print()
-    print('当前版本:v2.0.1')
+    print('------------------------------------')
+    print('当前版本:v2.0.2')
     print("上海电力外语系2010级某只专用程序，可计算范围：【学分不等于0】的所有科目(包括换算后的优良中差,ABCD)")
     print("鸣谢:所有给我高分的那些老师们！有机会的话在3.0里加入教师统计给你们统统赞一个，我都记得的。")
     print()
@@ -81,16 +91,18 @@ def calc():
     print('总分数是：', grade_sum)
     print('GPA是：', round(my_gpa, 5))
     print('算数平均分是：', round(aver_point, 3), ', 即', round(aver_point_final, 5))
-    
-    
-# 运行
+    print('------------------------------------')
 
 if __name__ == '__main__':
     while True:
         a = input('输入y继续,n退出： ')
         if a == ('y' or 'Y'):
             all_start()
-            make_dict()
-            calc()
+            if is_flag == True:
+                make_dict()
+                calc()
+            else:
+                print('请正确复制所有成绩内容到文本文件，并确保是否有后缀名如.txt,并正确输入！')
+                print()
         else:
             exit()
