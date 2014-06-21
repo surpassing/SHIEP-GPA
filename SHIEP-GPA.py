@@ -71,8 +71,8 @@ def calc():
 
     my_gpa = total_ctp / credit_sum  # 学分乘以绩点的总数除以总学分
 
-    print('当前版本:v2.0.0')
-    print("上海电力外语系2010级某只路过，本程序显示【学分不等于0】的所有科目(包括换算后的优良中差,ABCD)")
+    print('当前版本:v2.0.0 final')
+    print("上海电力外语系2010级某只专用程序，可计算范围：【学分不等于0】的所有科目(包括换算后的优良中差,ABCD)")
     print("鸣谢:所有给我高分的那些老师们！有机会的话在3.0里加入教师统计给你们统统赞一个，我都记得的。")
     print('总学分是：', credit_sum)
     print('总课程数是：', course_sum)
@@ -88,4 +88,4 @@ if __name__ == '__main__':
             make_dict()
             calc()
         else:
-               exit()
+            exit()
