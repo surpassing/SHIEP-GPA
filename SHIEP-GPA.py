@@ -1,3 +1,4 @@
+# -*- coding:utf8 -*-
 # encoding = utf-8
 #
 # SHIEP 总学分，总绩点，算数平均分，平均绩点GPA等快速计算。
